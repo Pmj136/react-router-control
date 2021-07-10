@@ -29,6 +29,9 @@ const routes = [
     {
         path: "/home",
         component: () => <div>home</div>,
+        meta:{ //extra info
+            
+        }
     },
     {
         path: "/about/:type",//dynamic segment 'type'
