@@ -1,12 +1,8 @@
-export function resolveRoute(basePath, path) {
-    //获得标准的路径
-    const _getPathString = (rawPath) => {
-        if (rawPath === undefined) return null
-        if (rawPath.startsWith("/")) return rawPath
-        if (basePath === '/') return "/" + rawPath
-        return basePath + "/" + rawPath
-    }
-    return _getPathString(path)
+export function resolveRoute(basePath, rawPath) {
+    if (rawPath === undefined) return null
+    if (rawPath.startsWith("/")) return rawPath
+    if (basePath === '/') return "/" + rawPath
+    return basePath + "/" + rawPath
 }
 
 export function specialRouteToEnd(routes) {
