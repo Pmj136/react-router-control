@@ -9,11 +9,13 @@ const RouteWithSubRoutes = (route) => {
             {
                 redirect
                     ?
-                    <Route exact path={path}>
+                    <Route exact sensitive path={path}>
                         <Redirect to={redirect}/>
                     </Route>
                     :
                     <Route
+                        exact
+                        sensitive
                         path={path}
                         render={props => (
                             <route.component {...props} meta={route.meta}>
