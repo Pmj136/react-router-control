@@ -1,40 +1,51 @@
 import React from "react";
 import {BrowserRouter, HashRouter, Redirect, Route, Switch} from "react-router-dom";
-import {resolveRoute, redirectRouteToEnd} from "./util";
+import {resolveRoute, specialRouteToEnd} from "./util";
 
-const RouteWithSubRoutes = (route) => {
-    const {path, redirect} = resolveRoute(route);
+function renderRoutes(routes, basePath = "") {
+    specialRouteToEnd(routes);
     return (
-        <>
+        <Switch>
             {
-                redirect
-                    ?
-                    <Route exact sensitive path={path}>
-                        <Redirect to={redirect}/>
-                    </Route>
-                    :
-                    <Route
-                        exact
-                        sensitive
-                        path={path}
-                        render={props => (
-                            <route.component {...props} meta={route.meta}>
-                                {renderRoutes(route.children || [], path)}
-                            </route.component>
-                        )
+                routes.map((v, i) => {
+                        const path = resolveRoute(basePath, v.path)
+                        if (v.redirect) {
+                            const redirectPath = resolveRoute(basePath, v.redirect)
+                            return (
+                                <Route key={i} exact path={path}>
+                                    <Redirect to={redirectPath}/>
+                                </Route>
+                            )
                         }
-                    />
+                        if (v.path === '/') {
+                            return <Route key={i} {...v} path="/" exact component={v.component}/>
+                        }
+                        if (v.path === '*') {
+                            return <Route key={i} component={v.component}/>
+                        }
+
+                        return (
+                            <Route key={i} path={path} render={
+                                props => {
+                                    if (v.children && v.children.length > 0) {
+                                        return (
+                                            <v.component>
+                                                {renderRoutes(v.children, path)}
+                                            </v.component>
+                                        )
+                                    }
+                                    return <v.component {...props} meta={v.meta}/>
+                                }
+                            }/>
+                        )
+
+                    }
+                )
             }
-        </>
+        </Switch>
     )
 }
 
-function renderRoutes(routes, basePath = "") {
-    redirectRouteToEnd(routes)
-    return routes.map((route, i) => (
-        <RouteWithSubRoutes key={i} {...route} basePath={basePath}/>
-    ))
-}
 
 export default function RouterControl(props) {
     const {routes, mode} = props
@@ -44,9 +55,7 @@ export default function RouterControl(props) {
     //default:browse
     return (
         <Router>
-            <Switch>
-                {renderRoutes(routes)}
-            </Switch>
+            {renderRoutes(routes)}
         </Router>
     );
 }
