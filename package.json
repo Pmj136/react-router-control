@@ -5,6 +5,13 @@
   "module": "build/index.esm.js",
   "main": "build/index.cjs.js",
   "typings": "index.d.ts",
+  "files": [
+    "build",
+    "index.d.ts",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
     "build": "rollup -c"
   },
