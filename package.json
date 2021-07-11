@@ -1,6 +1,6 @@
 {
   "name": "react-router-control",
-  "version": "1.0.5",
+  "version": "1.2.0",
   "description": "A component to simplify the configuration of react-router-dom, like the configuration of vue-router",
   "module": "build/index.esm.js",
   "main": "build/index.cjs.js",
