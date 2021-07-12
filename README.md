@@ -1,6 +1,6 @@
 react-router-control
 =========================
-A component to simplify the configuration of react-router-dom, like the configuration
+A component to simplify the usage of [react-router-dom](https://reactrouter.com/web/guides/quick-start), like the config
 of [vue-router](https://router.vuejs.org/)
 
 ## Installation
@@ -16,75 +16,37 @@ npm install react-router-control
 yarn add react-router-control
 ```
 
-## Usages
+## Quick Start
 
-### 1、routes config
+- At first , we recommend that you use separate files to manage your config. If you are an experience
+  with [vue-router](https://router.vuejs.org/) , the config is basically the same as it. Or you can refer
+  to [routes.js](https://github.com/Pmj136/react-router-control/examples/use_in_js/routes.js).
 
-If you are an experience with [Vue.js](https://vuejs.org/) , the configuration is basically the same as it. Or you can
-refer to the following configuration.
-
-```javascript
-//examples
-const routes = [
-    {
-        path: "/home",
-        component: () => <div>home</div>,
-        meta: { //extra info
-
-        }
-    },
-    {
-        path: "/about/:type",//dynamic segment 'type'
-        component: () => <div>About</div>
-    },
-    {
-        path: "/user",
-        component: User,
-        children: [
-            //if matching "/user", router will jump to "/user/profile".
-            {
-                path: "", //or use absolute path "/user"
-                redirect: "profile" //or use absolute path "/user/profile"
-            },
-            {
-                path: "profile", //or use absolute path "/user/profile"
-                component: Profile,
-            },
-            {
-                path: "*", //404
-                component: () => <div>Not Found</div>
-            },
-            //and more……
-        ]
-    },
-    {
-        path: "*", //404
-        component: () => <div>Not Found</div>
-    },
-];
-```
-
-### 2、render routes
-
-|  prop  | desc  |
-|  ----  | ----  |
-| mode  | "browse" or "hash" ,default:"browse" |
-| routes  | routes config |
-
-<br/>
+- Now , import your config (routes.js) at main.js:
 
 ```javascript
+//main.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RouterControl from "react-router-control";
 
-import routes from "routes.js" //导入路由配置
+import routes from "xxx/routes" //your config
 
 ReactDOM.render(
     <RouterControl routes={routes}/>,
     document.getElementById('root')
 );
 ```
+- If you want to Use in <font color="#dd0000">**TypeScript**</font> , refer to [use in TypeScript](https://github.com/Pmj136/react-router-control/examples/use_in_ts)
+
+## Reference
+
+### 1、props
+
+|  prop  | desc  |
+|  ----  | ----  |
+| mode  | "browser" or "hash" ,default:"browser" |
+| routes  | routes config |
 
 ### 2、render route children
 
@@ -117,7 +79,7 @@ const Parent = (props) => {
 }
 ```
 
-### 4、get dynamic segment in component
+### 3、get dynamic segment in component
 
 - a part of route config
 
@@ -168,4 +130,6 @@ const Dynamic = (props) => {
     )
 }
 ```
+ 
+
 
