@@ -20,7 +20,7 @@ yarn add react-router-control
 
 - At first , we recommend that you use separate files to manage your config. If you are an experience
   with [vue-router](https://router.vuejs.org/) , the config is basically the same as it. Or you can refer
-  to [routes.js](https://github.com/Pmj136/react-router-control/examples/use_in_js/routes.js).
+  to [routes.js](https://github.com/Pmj136/react-router-control/blob/main/examples/use_in_js/routes.js).
 
 - Now , import your config (routes.js) at main.js:
 
@@ -37,7 +37,7 @@ ReactDOM.render(
     document.getElementById('root')
 );
 ```
-- If you want to Use in <font color="#dd0000">**TypeScript**</font> , refer to [use in TypeScript](https://github.com/Pmj136/react-router-control/examples/use_in_ts)
+- If you want to Use in <font color="#dd0000">**TypeScript**</font> , refer to [use in TypeScript](https://github.com/Pmj136/react-router-control/tree/main/examples/use_in_ts)
 
 ## Reference
 

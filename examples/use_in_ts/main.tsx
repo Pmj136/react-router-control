@@ -5,5 +5,5 @@ import routes from "./routes";
 
 ReactDOM.render(
     <ReactRouterControl routes={routes}/>,
-    document.getElementById('vite-react')
+    document.getElementById('root')
 )
