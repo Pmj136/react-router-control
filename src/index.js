@@ -8,43 +8,39 @@ function renderRoutes(routes, basePath = "") {
         <Switch>
             {
                 routes.map((v, i) => {
-                        const path = resolveRoute(basePath, v.path)
-                        if (v.redirect) {
-                            const redirectPath = resolveRoute(basePath, v.redirect)
-                            return (
-                                <Route key={i} exact path={path}>
-                                    <Redirect to={redirectPath}/>
-                                </Route>
-                            )
-                        }
-                        if (v.path === '/') {
-                            return <Route key={i} {...v} path="/" exact component={v.component}/>
-                        }
-                        if (v.path === '*') {
-                            return <Route key={i} component={v.component}/>
-                        }
-
+                    const path = resolveRoute(basePath, v.path)
+                    if (v.redirect) {
+                        const redirectPath = resolveRoute(basePath, v.redirect)
                         return (
-                            <Route key={i} path={path} render={
-                                props => {
-                                    if (v.children && v.children.length > 0) {
-                                        return (
-                                            <v.component>
-                                                {renderRoutes(v.children, path)}
-                                            </v.component>
-                                        )
-                                    }
-                                    return <v.component {...props} meta={v.meta}/>
-                                }
-                            }/>
+                            <Route key={i} exact path={path}>
+                                <Redirect to={redirectPath}/>
+                            </Route>
                         )
-
                     }
+                    if (v.path === '*') {
+                        return <Route key={i} component={v.component}/>
+                    }
+                    return (
+                        <Route key={i} sensitive exact={v.path === '/'} path={path} render={
+                            props => {
+                                if (v.children && v.children.length > 0) {
+                                    return (
+                                        <v.component>
+                                            {renderRoutes(v.children, path)}
+                                        </v.component>
+                                    )
+                                }
+                                return <v.component {...props} meta={v.meta}/>
+                            }
+                        }/>
+                    )
+
+                }
                 )
             }
-        </Switch>
-    )
-}
+                </Switch>
+                )
+            }
 
 
 export default function RouterControl(props) {
