@@ -1,45 +1,68 @@
 import {RouteItem} from "../index";
 import React from "react";
 
-const ComponentA = () => <div>ComponentA</div>
+const Home = () => <div>home</div>
 
-const ComponentB = () => <div>ComponentB</div>
-
-const ComponentC = (props: any) => (
+const Parent = (props: any) => (
     <div>
-        <h2>ComponentC</h2>
+        <h2>parent</h2>
         {props.children}
     </div>
 )
-const ComponentC1 = () => <div>ComponentC1</div>
-const NotFound = () => <div>Not Found</div>
+const Child = () => <div>child</div>
+const NotFound = () => <div>404</div>
 
 const routes: Array<RouteItem> = [
     {
         path: "/",
-        redirect: "/a",
+        redirect: "/home",
     },
     {
-        path: "/a",
-        component: ComponentA
+        path: "/home",
+        component: Home
     },
     {
-        path: "/b",
-        component: ComponentB
-    },
-    {
-        path: "/c",
-        component: ComponentC,
+        path: "/parent",
+        component: Parent,
         children: [
             {
-                path: "c1",
-                component: ComponentC1
+                path: "child",
+                component: Child
             },
             {
                 path: "*",
                 component: NotFound
             }
         ]
+    },
+    {
+        path: "*",
+        component: NotFound
+    },
+]
+
+export const reverseRoutes = [
+    {
+        path: "/home",
+        component: Home
+    },
+    {
+        path: "/parent",
+        component: Parent,
+        children: [
+            {
+                path: "child",
+                component: Child
+            },
+            {
+                path: "*",
+                component: NotFound
+            }
+        ]
+    },
+    {
+        path: "/",
+        redirect: "/home",
     },
     {
         path: "*",

@@ -20,37 +20,33 @@ const renderWithRouter = (route: string = "") => {
     }
 }
 
-test("'/' redirect to '/a'", () => {
+test("'/' redirect to '/home'", () => {
     const {getByText} = renderWithRouter("/")
-    expect(getByText("ComponentA")).toBeInTheDocument()
+    expect(getByText("home")).toBeInTheDocument()
 })
 
-test("'/a' rendering <ComponentA/>", () => {
-    const {getByText} = renderWithRouter("/a")
-    expect(getByText("ComponentA")).toBeInTheDocument()
-})
-test("'/b' rendering <ComponentB/>", () => {
-    const {getByText} = renderWithRouter("/b")
-    expect(getByText("ComponentB")).toBeInTheDocument()
+test("'/home' rendering <Home/>", () => {
+    const {getByText} = renderWithRouter("/home")
+    expect(getByText("home")).toBeInTheDocument()
 })
 
-test("'/c' rendering <ComponentC/>", () => {
-    const {getByText} = renderWithRouter("/c")
-    expect(getByText("ComponentC")).toBeInTheDocument()
+test("'/parent' rendering <Parent/>", () => {
+    const {getByText} = renderWithRouter("/parent")
+    expect(getByText("parent")).toBeInTheDocument()
 })
 
-test("'/c/c1' rendering <ComponentC1/>", () => {
-    const {getByText} = renderWithRouter("/c/c1")
-    expect(getByText("ComponentC1")).toBeInTheDocument()
+test("'/parent/child' rendering <Child/>", () => {
+    const {getByText} = renderWithRouter("/parent/child")
+    expect(getByText("child")).toBeInTheDocument()
 })
 
 
 test("'/undefined_path' rendering <NotFound/>", () => {
     const {getByText} = renderWithRouter("/undefined_path")
-    expect(getByText("Not Found")).toBeInTheDocument()
+    expect(getByText("404")).toBeInTheDocument()
 })
 
-test("'/c/undefined_path' rendering <NotFound/>", () => {
+test("'/parent/undefined_path' rendering <NotFound/>", () => {
     const {getByText} = renderWithRouter("/undefined_path")
-    expect(getByText("Not Found")).toBeInTheDocument()
+    expect(getByText("404")).toBeInTheDocument()
 })
