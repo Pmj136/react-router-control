@@ -1,23 +1,23 @@
-import {FC, ReactNode} from "react";
+import {FC, ComponentType} from "react";
 
-export type RouteType = {
+export type RouteItem = {
     path: string,
-    component: ReactNode,
+    component: ComponentType<any>,
+    children?: Array<RouteItem>,
     meta?: object,
     redirect?: never
 } | {
     path: string,
     redirect: string,
+    children?: never,
     component?: never,
     meta?: never
 }
 
-
-export interface ReactRouterControlProps {
-    routes: Array<RouteType>,
-    mode?: 'browser' | 'hash'
+export interface RouterControlProps {
+    routes: Array<RouteItem>
 }
 
-declare const ReactRouterControl: FC<ReactRouterControlProps>;
+declare const ReactRouterControl: FC<RouterControlProps>;
 
 export default ReactRouterControl
