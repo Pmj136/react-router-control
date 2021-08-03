@@ -1,10 +1,15 @@
-import {FC, ComponentType} from "react";
+import { FC, ComponentType } from "react";
+
+export interface IMeta {
+    title?: string,
+    [propName: string]: any
+}
 
 export type RouteItem = {
     path: string,
     component: ComponentType<any>,
     children?: Array<RouteItem>,
-    meta?: object,
+    meta?: IMeta,
     redirect?: never
 } | {
     path: string,
