@@ -1,18 +1,16 @@
 import React, { ComponentType } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import { resolveRoute } from './util'
 import { RouteItem, RouterControlProps } from '../index'
 
 function renderRoutes(routes: Array<RouteItem>, basePath = '') {
     return (
         <Switch>
             {routes.map((v, i) => {
-                const path = resolveRoute(basePath, v.path)
+                const path = v.path
                 if (v.redirect !== undefined) {
-                    const redirectPath = resolveRoute(basePath, v.redirect)
                     return (
                         <Route key={i} exact path={path}>
-                            <Redirect to={redirectPath} />
+                            <Redirect to={v.redirect} />
                         </Route>
                     )
                 }
@@ -26,16 +24,12 @@ function renderRoutes(routes: Array<RouteItem>, basePath = '') {
                         exact={v.path === '/'}
                         path={path}
                         render={(props) => {
-                            const title = v?.meta?.title
-                            if (title) document.title = title
                             const Child: ComponentType<any> = v.component
                             if (v.children && v.children.length > 0) {
-                                return (
-                                    <Child>
-                                        {renderRoutes(v.children, path)}
-                                    </Child>
-                                )
+                                return <Child>{renderRoutes(v.children, path)}</Child>
                             }
+                            const title = v?.meta?.title
+                            if (title) document.title = title
                             return <Child {...props} meta={v.meta} />
                         }}
                     />
